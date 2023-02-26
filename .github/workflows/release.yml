@@ -90,16 +90,15 @@ jobs:
           IMAGE_TAG: ${{ github.ref_name }}
           PULL_SECRET: ${{ secrets.PULL_SECRET }}
         run: |
-          sed -i "s@__IMAGE_FRONTEND__@$FRONTEND_IMAGE@g" k8s/deployment.yaml
-          sed -i "s@__IMAGE_TAG__@$IMAGE_TAG@g" k8s/deployment.yaml
-          sed -i "s@__PULL_SECRET__@$PULL_SECRET@g" k8s/deployment.yaml
+          sed -i "s@__IMAGE_FRONTEND__@$FRONTEND_IMAGE@g" deployment.yaml
+          sed -i "s@__IMAGE_TAG__@$IMAGE_TAG@g" deployment.yaml
+          sed -i "s@__PULL_SECRET__@$PULL_SECRET@g" deployment.yaml
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}-deployment
           path: |
-            k8s/deployment.frontend.yaml
-            k8s/service.frontend.yaml
+            deployment.frontend.yaml
 
   deploy:
     needs: generate-artifacts
@@ -113,10 +112,10 @@ jobs:
           IMAGE_TAG: ${{ github.ref_name }}
         with:
           name: ${{ github.event.repository.name }}-deployment
-          path: /home/ubuntu/deployments/frontend/${{ github.ref_name }}
+          path: /root/deployment/freeyeti/${{ github.ref_name }}
 
       - name: deploy
-        working-directory: /home/ubuntu/deployments/frontend/${{ github.ref_name }}
+        working-directory: /root/deployment/freeyeti/${{ github.ref_name }}
         run: |
           kubectl apply -f deployment.frontend.yaml
           kubectl apply -f service.frontend.yaml
