@@ -1,6 +1,5 @@
 "use client"
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
 import { getBlogs } from '@/modules/Home/requests'
@@ -8,7 +7,7 @@ import { getBlogs } from '@/modules/Home/requests'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState();
 
   useEffect(() => {
     try {
@@ -23,7 +22,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <h1>Freeyeti's blog</h1>
+      <h1>Freeyeti&apos;s blog</h1>
       {blogs && blogs.items && blogs.items.map((blog) => {
         return (
           <div key={blog.id}>

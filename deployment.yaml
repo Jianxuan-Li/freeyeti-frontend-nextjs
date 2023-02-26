@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: freeyeti-frontend
+spec:
+  selector:
+    app: freeyeti-frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: http
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: freeyeti-frontend
+spec:
+  selector:
+    matchLabels:
+      app: freeyeti-frontend
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: freeyeti-frontend
+    spec:
+      imagePullSecrets:
+        - name: __PULL_SECRET__
+      containers:
+        - name: freeyeti-frontend
+          image: __IMAGE_FRONTEND__:__IMAGE_TAG__
+          imagePullPolicy: Always
+          command: ["yarn", "start"]
+          ports:
+            - containerPort: 3000
