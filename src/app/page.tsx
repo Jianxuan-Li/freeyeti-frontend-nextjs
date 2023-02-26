@@ -14,7 +14,6 @@ export default function Home() {
     try {
       getBlogs().then((res) => {
         setBlogs(res)
-        console.log(res)
       })
     } catch (error) {
       console.log(error)
@@ -25,6 +24,14 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <h1>Freeyeti's blog</h1>
+      {blogs && blogs.items && blogs.items.map((blog) => {
+        return (
+          <div key={blog.id}>
+            <h2>{blog.title}</h2>
+          </div>
+        )
+      })
+      }
     </main>
   )
 }
