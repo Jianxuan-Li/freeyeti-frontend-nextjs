@@ -98,7 +98,7 @@ jobs:
         with:
           name: ${{ github.event.repository.name }}-deployment
           path: |
-            deployment.frontend.yaml
+            deployment.yaml
 
   deploy:
     needs: generate-artifacts
