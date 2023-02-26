@@ -24,7 +24,7 @@ const nextConfig = {
     // Important: return the modified config
     config.plugins.push(
       new webpack.DefinePlugin({
-        'API_PREFIX': IS_PROD ? JSON.stringify('/backend/api') : JSON.stringify('/api'),
+        'API_PREFIX': IS_PROD ? JSON.stringify('/backend/api') : JSON.stringify('http://localhost:8000/api'),
       })
     );
     return config

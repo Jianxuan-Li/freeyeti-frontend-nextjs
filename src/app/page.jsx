@@ -1,29 +1,20 @@
-"use client"
-import { useEffect, useState } from 'react'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
 import { getBlogs } from '@/modules/Home/requests'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
-  const [blogs, setBlogs] = useState();
+async function getData() {
+  return await getBlogs();
+}
 
-  useEffect(() => {
-    try {
-      getBlogs().then((res) => {
-        setBlogs(res)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-
-  }, []);
+export default async function Home() {
+  const {items, meta} = await getData();
 
   return (
     <main className={styles.main}>
       <h1>Freeyeti&apos;s blog</h1>
-      {blogs && blogs.items && blogs.items.map((blog) => {
+      {items && items.map((blog) => {
         return (
           <div key={blog.id}>
             <h2>{blog.title}</h2>
@@ -34,3 +25,4 @@ export default function Home() {
     </main>
   )
 }
+
