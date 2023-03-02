@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 const CSRF_COOKIE_NAME = "csrftoken";
 const CSRF_HEADER_NAME = "X-CSRFTOKEN";
 
-export const get = async (url: string = "", params: any = {}) => {
+export const get = async (url, params) => {
 
   if (Object.keys(params).length) {
     url += "?" + new URLSearchParams(params);
