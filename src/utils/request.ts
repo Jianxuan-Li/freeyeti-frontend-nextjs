@@ -1,44 +1,21 @@
-import axios from "axios";
+import Cookies from 'js-cookie'
 
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.withCredentials = true;
+const CSRF_COOKIE_NAME = "csrftoken";
+const CSRF_HEADER_NAME = "X-CSRFTOKEN";
 
-// const token = sessionStorage.getItem("token");
+export const get = async (url: string = "", params: any = {}) => {
 
-const request = async ({
-  url,
-  method="GET",
-  data=null,
-  params=null,
-  headers=null,
-  auth=null,
-  isJSON = true,
-}) => {
-  let requestHeaders = {};
-
-  // if (token) {
-  //   requestHeaders["Authorization"] = `Token ${token}`;
-  // }
-
-  if (typeof headers == "object" && headers != null && headers != undefined) {
-    requestHeaders = Object.assign(requestHeaders, headers);
+  if (Object.keys(params).length) {
+    url += "?" + new URLSearchParams(params);
   }
 
-  const response = await axios.request({
-    baseURL: "",
-    url,
-    headers: requestHeaders,
-    method,
-    data,
-    params,
-    auth,
-    transitional: {
-      forcedJSONParsing: isJSON
-    }
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      [CSRF_HEADER_NAME]: Cookies.get(CSRF_COOKIE_NAME),
+    },
+    cache: "no-store"
   });
-
-  return response.data;
+  return response.json();
 };
-
-export default request;
