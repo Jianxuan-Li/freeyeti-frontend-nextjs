@@ -9,14 +9,6 @@ const nextConfig = {
   publicRuntimeConfig: {
     API_PREFIX: IS_PROD ? '/backend/api' : '/api',
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*/',
-        destination: IS_PROD ? '/backend/api/:path*/' : 'http://localhost:8000/api/:path*/',
-      },
-    ]
-  },
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
@@ -24,11 +16,22 @@ const nextConfig = {
     // Important: return the modified config
     config.plugins.push(
       new webpack.DefinePlugin({
-        'API_PREFIX': IS_PROD ? JSON.stringify('/backend/api') : JSON.stringify('http://localhost:8000/api'),
+        'API_PREFIX': IS_PROD ? JSON.stringify('https://freeyeti.net/backend/api') : JSON.stringify('http://localhost:3000/api'),
       })
     );
     return config
   },
+}
+
+if (!IS_PROD) {
+  nextConfig.rewrites = async () => {
+    return [
+      {
+        source: '/api/:path*/',
+        destination: 'http://localhost:8000/api/:path*/',
+      },
+    ]
+  }
 }
 
 module.exports = nextConfig

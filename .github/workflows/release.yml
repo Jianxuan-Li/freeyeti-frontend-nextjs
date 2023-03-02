@@ -112,9 +112,9 @@ jobs:
           IMAGE_TAG: ${{ github.ref_name }}
         with:
           name: ${{ github.event.repository.name }}-deployment
-          path: /root/deployment/freeyeti/${{ github.ref_name }}
+          path: /root/deployment/freeyeti-frontend/${{ github.ref_name }}
 
       - name: deploy
-        working-directory: /root/deployment/freeyeti/${{ github.ref_name }}
+        working-directory: /root/deployment/freeyeti-frontend/${{ github.ref_name }}
         run: |
           kubectl apply -f deployment.yaml
