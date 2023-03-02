@@ -7,3 +7,9 @@ export const getBlogs = async (params: any = {}) => {
     type: "blog.BlogPage",
   });
 };
+
+export const getBlogById = async (id: number, params: any = {}) => {
+  return await get(API_BLOGS + id + '/', {
+    ...params,
+  });
+};
