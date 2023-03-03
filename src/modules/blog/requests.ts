@@ -13,3 +13,10 @@ export const getBlogById = async (id: number, params: any = {}) => {
     ...params,
   });
 };
+
+export const findBlogsBySlug = async (slug: string, params: any = {}) => {
+  return await get(API_BLOGS, {
+    ...params,
+    slug,
+  });
+}

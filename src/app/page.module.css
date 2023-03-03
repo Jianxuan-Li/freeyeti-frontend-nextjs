@@ -9,3 +9,18 @@
 .blogList{
   text-align: center;
 }
+
+.blogBody{
+  text-align: left;
+  min-height: 100vh;
+  padding: 6rem;
+}
+
+.blogPageTitle{
+  padding-bottom: 5px;
+}
+
+.blogPageDate{
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+}

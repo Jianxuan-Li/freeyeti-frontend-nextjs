@@ -1,6 +1,6 @@
 import { Inter } from "@next/font/google";
 import styles from "./page.module.css";
-import { getBlogs } from "@/modules/Home/requests";
+import { getBlogs } from "@/modules/blog/requests";
 import Link from 'next/link';
 
 const inter = Inter({ subsets: ["latin"] });
