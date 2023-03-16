@@ -14,7 +14,7 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <h1>Freeyeti&apos;s blog</h1>
+      <h1>Yeti&apos;s blog</h1>
       <div className={styles.blogList}>
         {items &&
           items.map((blog) => {
