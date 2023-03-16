@@ -37,6 +37,5 @@ spec:
         - name: freeyeti-frontend
           image: __IMAGE_FRONTEND__:__IMAGE_TAG__
           imagePullPolicy: Always
-          command: ["yarn", "start"]
           ports:
             - containerPort: 3000

@@ -118,6 +118,3 @@ jobs:
         working-directory: /root/deployment/freeyeti-frontend/${{ github.ref_name }}
         run: |
           kubectl apply -f deployment.yaml
-
-      - name: Clean Workspace
-        uses: AutoModality/action-clean@v1.1.0
