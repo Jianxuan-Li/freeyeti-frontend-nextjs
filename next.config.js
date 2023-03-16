@@ -23,6 +23,10 @@ const nextConfig = {
   },
 }
 
+if (IS_PROD) {
+  nextConfig.output = "standalone";
+}
+
 if (!IS_PROD) {
   nextConfig.rewrites = async () => {
     return [
