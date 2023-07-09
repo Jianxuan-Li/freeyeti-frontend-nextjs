@@ -21,6 +21,7 @@
   top: 0;
   left: 0;
   z-index: -99999;
+  transition: background-image 10s ease-in-out;
 }
 
 .blogList {
