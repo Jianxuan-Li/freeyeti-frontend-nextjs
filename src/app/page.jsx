@@ -1,7 +1,7 @@
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
 import styles from "./page.module.css";
 import { getBlogs } from "@/modules/blog/requests";
-import Link from 'next/link';
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,16 +14,25 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <h1>Yeti&apos;s blog</h1>
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Yeti&apos;s blog
+      </h1>
       <div className={styles.blogList}>
-        {items &&
-          items.map((blog) => {
-            return (
-              <div key={blog.id}>
-                <h2><Link href={blog.meta.slug}>{blog.title}</Link></h2>
-              </div>
-            );
-          })}
+        <ul className="list-none">
+          {items &&
+            items.map((blog) => {
+              return (
+                <li key={blog.id}>
+                  <Link
+                    href={blog.meta.slug}
+                    className="text-blue-600 visited:text-purple-600"
+                  >
+                    {blog.title}
+                  </Link>
+                </li>
+              );
+            })}
+        </ul>
       </div>
     </main>
   );

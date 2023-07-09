@@ -1,4 +1,5 @@
 import styles from "../page.module.css";
+import "./stream-context.css";
 import moment from "moment";
 import { findBlogsBySlug, getBlogById } from "@/modules/blog/requests";
 
@@ -17,9 +18,16 @@ export default async function BlogPage(context) {
 
   return (
     <main className={styles.blogBody}>
-      <h1 className={styles.blogPageTitle}>{blog.title}</h1>
-      <p className={styles.blogPageDate}>{moment(blog.meta.first_published_at).format("Y-M-D")}</p>
-      <div dangerouslySetInnerHTML={{ __html: blog.context }} />
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        {blog.title}
+      </h1>
+      <p className={styles.blogPageDate}>
+        {moment(blog.meta.first_published_at).format("Y-M-D")}
+      </p>
+      <div
+        className="body-context"
+        dangerouslySetInnerHTML={{ __html: blog.context }}
+      />
     </main>
   );
 }
