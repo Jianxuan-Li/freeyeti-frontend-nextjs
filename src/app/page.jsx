@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import moment from "moment";
 import styles from "./page.module.css";
 import { getBlogs } from "@/modules/blog/requests";
 import Link from "next/link";
@@ -25,7 +26,7 @@ export default async function Home() {
                     href={blog.meta.slug}
                     className="text-blue-600 visited:text-purple-600"
                   >
-                    {blog.title}
+                    {moment(blog.meta.first_published_at).format("Y MM DD")} {">"} {blog.title}
                   </Link>
                 </li>
               );
