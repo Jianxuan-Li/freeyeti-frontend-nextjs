@@ -1,5 +1,5 @@
 import { get } from "@/utils/request";
-import { API_BLOGS, API_IMAGES } from "@/constants/apis";
+import { API_BLOGS } from "@/constants/apis";
 
 export const getBlogs = async (params: any = {}) => {
   return await get(API_BLOGS, {
@@ -18,14 +18,5 @@ export const findBlogsBySlug = async (slug: string, params: any = {}) => {
   return await get(API_BLOGS, {
     ...params,
     slug,
-  });
-};
-
-// http://localhost:8000/api/v2/images/?tags=indexbg&limit=5&order=-id
-export const getHomepageBg = async (params: any = {}) => {
-  return await get(API_IMAGES, {
-    tags: "indexbg",
-    limit: 5,
-    order: "-id",
   });
 };

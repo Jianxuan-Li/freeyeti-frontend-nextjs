@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import { getHomepageBg } from "@/modules/blog/requests";
+import { getHomepageBg } from "@/modules/home/requests";
 import styles from "./page.module.css";
 
 type Props = {}
