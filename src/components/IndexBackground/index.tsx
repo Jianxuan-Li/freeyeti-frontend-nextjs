@@ -7,7 +7,7 @@ type Props = {}
 let timer: any = null;
 let currIndex = 0;
 
-export default function index({ }: Props) {
+export default function Index({ }: Props) {
   const [curr, setCurr] = React.useState<string | null>(null);
 
   React.useEffect(() => {
