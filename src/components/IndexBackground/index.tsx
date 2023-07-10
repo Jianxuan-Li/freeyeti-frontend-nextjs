@@ -7,6 +7,11 @@ type Props = {}
 let timer: any = null;
 let currIndex = 0;
 
+function cache(url: string){
+  const img = new Image();
+  img.src = url;
+}
+
 export default function Index({ }: Props) {
   const [curr, setCurr] = React.useState<string | null>(null);
 
@@ -29,6 +34,10 @@ export default function Index({ }: Props) {
         currIndex++;
         setCurr(bg[currIndex]);
       }, 7000);
+
+      bg.forEach((url) => {
+        cache(url);
+      });
     })
 
     return () => {
