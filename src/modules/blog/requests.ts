@@ -5,6 +5,7 @@ export const getBlogs = async (params: any = {}) => {
   return await get(API_BLOGS, {
     ...params,
     type: "blog.BlogPage",
+    order: "-first_published_at",
   });
 };
 
