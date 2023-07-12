@@ -33,7 +33,7 @@ export default function Index({ }: Props) {
         }
         currIndex++;
         setCurr(bg[currIndex]);
-      }, 7000);
+      }, 4000);
 
       bg.forEach((url) => {
         cache(url);
