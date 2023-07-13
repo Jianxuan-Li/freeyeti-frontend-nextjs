@@ -1,5 +1,3 @@
-/* tslint:disable */
-
 export default function Head() {
   return (
     <>
