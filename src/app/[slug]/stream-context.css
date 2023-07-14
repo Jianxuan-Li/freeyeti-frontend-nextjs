@@ -78,6 +78,8 @@
 
 .body-context .block-paragraph p{
     padding: 0.3rem 0;
+    line-break: anywhere;
+    word-break: break-all;
 }
 
 .body-context .block-paragraph p code {
