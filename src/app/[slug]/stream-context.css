@@ -65,6 +65,8 @@
 .body-context .block-paragraph a{
     color: #007bff;
     text-decoration: none;
+    line-break: anywhere;
+    word-break: break-all;
 }
 
 .body-context .block-paragraph a::before{
@@ -78,8 +80,9 @@
 
 .body-context .block-paragraph p{
     padding: 0.3rem 0;
-    line-break: anywhere;
-    word-break: break-all;
+    line-break: auto;
+    word-break: normal;
+    overflow-wrap: break-word; 
 }
 
 .body-context .block-paragraph p code {
