@@ -40,12 +40,9 @@ export default function WatchPage({}: Props) {
             <div key={index} className="bg-gray-100">
               <div>
                 <a href={item.url}>
-                  <Image
+                  <img
                     src={item.thumbnail}
                     alt={item.title}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
                     style={{ width: '100%', height: 'auto' }}
                   />
                 </a>
