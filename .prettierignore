@@ -8,3 +8,9 @@ node_modules
 .vscode
 .yarn
 public
+build
+.idea
+dist
+coverage
+node_modules
+docs

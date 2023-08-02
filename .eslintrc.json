@@ -1,5 +1,5 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": ["next/core-web-vitals", "prettier"],
   "globals": {
     "API_PREFIX": "readonly",
     "NODE_ENV": "readonly"
