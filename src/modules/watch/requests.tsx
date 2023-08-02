@@ -8,9 +8,9 @@ export const getWatchList = async (params: any = {}) => {
 };
 
 export const downloadVideo = async (id: string) => {
-  return await post(API_WATCH + '/' + id + '/');
+  return await post(API_WATCH + id + '/');
 };
 
 export const deleteVideo = async (id: string) => {
-  return await deleteRequest(API_WATCH + '/' + id + '/');
+  return await deleteRequest(API_WATCH + id + '/');
 };
