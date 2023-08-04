@@ -52,15 +52,6 @@ export default function DownloadBar(props: Props) {
       >
         <span>Download</span>
       </LoadingButton>
-      {/* <IconButton
-        color="primary"
-        sx={{ p: '10px' }}
-        aria-label="directions"
-        onClick={handleDownload}
-        disabled={loading}
-      >
-        <CloudDownloadIcon />
-      </IconButton> */}
     </Paper>
   );
 }
