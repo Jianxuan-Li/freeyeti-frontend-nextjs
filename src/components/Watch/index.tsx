@@ -33,8 +33,8 @@ export default function WatchPage({}: Props) {
       <div className="mt-6 mb-6">
         <DownloadBar onCachedNewVideo={updateWatchList} />
       </div>
-      <div className="mt-20 mb-6">
-        <div className="h-56 grid md:grid-cols-3 sm:grid-cols-2 gap-4 content-center">
+      <div className="mt-6 mb-6">
+        <div className="h-56 grid md:grid-cols-3 sm:grid-cols-2 gap-4">
           {watchList.map((item, index) => (
             <div key={index} className="bg-gray-100 rounded-lg">
               <div>
