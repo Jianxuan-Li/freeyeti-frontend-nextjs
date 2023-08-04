@@ -13,6 +13,7 @@ type WatchItem = {
   title: string;
   url: string;
   thumbnail: string;
+  videoId: string;
 };
 
 export default function WatchPage({}: Props) {
@@ -52,6 +53,9 @@ export default function WatchPage({}: Props) {
                   />
                 </a>
                 <figcaption className="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
+                  {item.title}
+                </figcaption>
+                <figcaption className="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
                   <Button
                     type="primary"
                     onClick={() => {
@@ -63,7 +67,7 @@ export default function WatchPage({}: Props) {
                   <Button
                     type="danger"
                     onClick={() => {
-                      deleteVideo(item.title).then(() => {
+                      deleteVideo(item.videoId).then(() => {
                         updateWatchList();
                       });
                     }}
