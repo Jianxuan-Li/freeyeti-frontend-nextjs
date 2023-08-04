@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { downloadVideo } from '@/modules/watch/requests';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import LoadingButton from '@mui/lab/LoadingButton';
 

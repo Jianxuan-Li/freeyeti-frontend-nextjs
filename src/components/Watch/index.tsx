@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { getWatchList, deleteVideo } from '@/modules/watch/requests';
-import DownloadBar from '@/components/watch/DownloadBar';
+import DownloadBar from './DownloadBar';
 import Button from '@/components/common/Button';
 
 type Props = {};
