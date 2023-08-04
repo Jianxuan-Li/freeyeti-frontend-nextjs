@@ -13,3 +13,11 @@ const api = Axios.create({
 });
 
 export default api;
+
+export const attachToken = (token: string) => {
+  api.defaults.headers.common['Authorization'] = `Token ${token}`;
+};
+
+export const removeToken = () => {
+  delete api.defaults.headers.common['Authorization'];
+};
