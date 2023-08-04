@@ -37,33 +37,40 @@ export default function WatchPage({}: Props) {
       <div className="mt-20 mb-6">
         <div className="h-56 grid md:grid-cols-3 sm:grid-cols-2 gap-4 content-center">
           {watchList.map((item, index) => (
-            <div key={index} className="bg-gray-100">
+            <div key={index} className="bg-gray-100 rounded-lg">
               <div>
                 <a href={item.url}>
                   <img
                     src={item.thumbnail}
                     alt={item.title}
-                    style={{ width: '100%', height: 'auto' }}
+                    className="rounded-lg shadow-xl dark:shadow-gray-800"
+                    style={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      maxHeight: '280px'
+                    }}
                   />
                 </a>
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    window.open(item.url, '_blank');
-                  }}
-                >
-                  Play
-                </Button>
-                <Button
-                  type="danger"
-                  onClick={() => {
-                    deleteVideo(item.title).then(() => {
-                      updateWatchList();
-                    });
-                  }}
-                >
-                  Delete
-                </Button>
+                <figcaption className="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      window.open(item.url, '_blank');
+                    }}
+                  >
+                    Play
+                  </Button>
+                  <Button
+                    type="danger"
+                    onClick={() => {
+                      deleteVideo(item.title).then(() => {
+                        updateWatchList();
+                      });
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </figcaption>
               </div>
             </div>
           ))}
