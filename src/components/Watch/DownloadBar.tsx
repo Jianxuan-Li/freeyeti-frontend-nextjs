@@ -23,7 +23,11 @@ export default function DownloadBar(props: Props) {
     }
     e.preventDefault();
     setLoading(true);
-    await downloadVideo(videoId);
+    try {
+      await downloadVideo(videoId);
+    } catch (error) {
+      console.log(error);
+    }
     props.onCachedNewVideo();
     setLoading(false);
   };
@@ -31,7 +35,12 @@ export default function DownloadBar(props: Props) {
   return (
     <Paper
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
+      sx={{
+        p: '2px 4px',
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%'
+      }}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
@@ -41,7 +50,7 @@ export default function DownloadBar(props: Props) {
         onChange={(e) => setVideoId(e.target.value)}
       />
       <LoadingButton
-        id={"download-button"}
+        id={'download-button'}
         size="small"
         onClick={handleDownload}
         endIcon={<CloudDownloadIcon />}
