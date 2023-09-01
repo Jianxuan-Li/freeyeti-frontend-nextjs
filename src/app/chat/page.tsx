@@ -53,7 +53,7 @@ const ChatPage = (props: Props) => {
     });
   };
 
-  return <div>chat</div>;
+  return <div>YeChat is on the way.</div>;
 };
 
 export default ChatPage;

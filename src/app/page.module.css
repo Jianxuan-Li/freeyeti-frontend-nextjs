@@ -15,7 +15,7 @@
   width: 100%;
 }
 
-.blogBody{
+.blogBody {
   text-align: left;
   min-height: 100vh;
   margin: 0 auto;
@@ -23,11 +23,11 @@
   max-width: 800px;
 }
 
-.blogPageTitle{
+.blogPageTitle {
   padding-bottom: 5px;
 }
 
-.blogPageDate{
+.blogPageDate {
   padding-bottom: 15px;
   border-bottom: 1px solid #ccc;
 }
