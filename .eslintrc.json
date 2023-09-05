@@ -3,6 +3,7 @@
   "globals": {
     "API_PREFIX": "readonly",
     "NODE_ENV": "readonly",
-    "CHAT_SERVER": "readonly"
+    "CHAT_SERVER": "readonly",
+    "CHAT_SERVER_PATH": "readonly"
   }
 }

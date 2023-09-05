@@ -26,7 +26,9 @@ export interface ClientToServerEvents {
 type Props = {};
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> =
-  io(CHAT_SERVER);
+  io(CHAT_SERVER, {
+    path: CHAT_SERVER_PATH,
+  });
 
 const ChatPage = (props: Props) => {
   const [isConnected, setIsConnected] = useState(socket.connected);
