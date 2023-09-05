@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { io, Socket } from 'socket.io-client';
 
 export interface User {
   userId: string;
@@ -25,47 +24,50 @@ export interface ClientToServerEvents {
 
 type Props = {};
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> =
-  io(CHAT_SERVER, {
-    path: CHAT_SERVER_PATH,
-  });
+const chatSocket = new WebSocket(
+  CHAT_SERVER.replace('http', 'ws') + CHAT_SERVER_PATH
+);
 
 const ChatPage = (props: Props) => {
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [isConnected, setIsConnected] = useState(chatSocket.readyState === 1);
 
   useEffect(() => {
-    socket.on('connect', () => {
+    chatSocket.onopen = () => {
       console.log('Connected to server.');
       setIsConnected(true);
-    });
+    };
 
-    socket.on('disconnect', () => {
+    chatSocket.onclose = () => {
       console.log('Disconnected from server.');
       setIsConnected(false);
-    });
+    };
 
-    socket.on('message', (e: Message) => {
-      console.log(e);
+    chatSocket.onmessage = (e: MessageEvent) => {
+      if (!e.data) return;
+      const data = JSON.parse(e.data);
+      if (!data.message || !data.timeSent) return;
       const chatLog = document.getElementById('chat-log');
-      if (chatLog) {
-        chatLog.innerHTML += `${e.timeSent} ${e.message}\n`;
-      }
-    });
+      if (!chatLog) return;
+      chatLog.innerHTML += `${data.timeSent} ${data.message}\n`;
+    };
 
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('message');
+      chatSocket.close();
     };
   }, []);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Sending message...');
-    socket.emit('message', {
-      timeSent: new Date(Date.now()).toLocaleString('en-US'),
-      message: e.target[0].value
-    });
+    chatSocket.send(
+      JSON.stringify({
+        event: 'message',
+        data: {
+          timeSent: new Date(Date.now()).toLocaleString('en-US'),
+          message: e.target[0].value
+        }
+      })
+    );
     e.target[0].value = '';
   };
 

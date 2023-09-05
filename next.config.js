@@ -9,9 +9,11 @@ const nextConfig = {
   publicRuntimeConfig: {
     API_PREFIX: IS_PROD ? '/backend/api' : '/api',
     CHAT_SERVER: IS_PROD
-      ? 'https://freeyeti.net/chat-server'
-      : 'http://localhost:8001',
-    CHAT_SERVER_PATH: IS_PROD ? '/chat-server/socket.io' : '/chat-server/socket.io'
+      ? 'wss://freeyeti.net/chat-server'
+      : 'ws://localhost:8001',
+    CHAT_SERVER_PATH: IS_PROD
+      ? '/chat-server'
+      : '/chat-server'
   },
   webpack: (
     config,
@@ -24,11 +26,11 @@ const nextConfig = {
           ? JSON.stringify('https://freeyeti.net/backend/api')
           : JSON.stringify('http://localhost:3000/api'),
         CHAT_SERVER: IS_PROD
-          ? JSON.stringify('https://freeyeti.net/chat-server')
-          : JSON.stringify('http://localhost:8001'),
+          ? JSON.stringify('wss://freeyeti.net/chat-server')
+          : JSON.stringify('ws://localhost:8001'),
         CHAT_SERVER_PATH: IS_PROD
-          ? JSON.stringify('/chat-server/socket.io')
-          : JSON.stringify('/chat-server/socket.io')
+          ? JSON.stringify('/chat-server')
+          : JSON.stringify('/chat-server')
       })
     );
     return config;
