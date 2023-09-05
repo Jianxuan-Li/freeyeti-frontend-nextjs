@@ -2,26 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 
-export interface User {
-  userId: string;
-  userName: string;
-}
-
-export interface Message {
-  timeSent: string;
-  message: string;
-}
-
-// Interface for when server emits events to clients.
-export interface ServerToClientEvents {
-  message: (e: Message) => void;
-}
-
-// Interface for when clients emit events to the server.
-export interface ClientToServerEvents {
-  message: (e: Message) => void;
-}
-
 type Props = {};
 
 const chatSocket = new WebSocket(
@@ -30,6 +10,7 @@ const chatSocket = new WebSocket(
 
 const ChatPage = (props: Props) => {
   const [isConnected, setIsConnected] = useState(chatSocket.readyState === 1);
+  const [clientId, setClientId] = useState('');
 
   useEffect(() => {
     chatSocket.onopen = () => {
@@ -44,11 +25,18 @@ const ChatPage = (props: Props) => {
 
     chatSocket.onmessage = (e: MessageEvent) => {
       if (!e.data) return;
-      const data = JSON.parse(e.data);
-      if (!data.message || !data.timeSent) return;
-      const chatLog = document.getElementById('chat-log');
-      if (!chatLog) return;
-      chatLog.innerHTML += `${data.timeSent} ${data.message}\n`;
+      const c = JSON.parse(e.data);
+      console.log('Received message from server: ', c);
+
+      if (c.event === 'message') {
+        if (!c.data || !c.data.timeSent || !c.data.message) return;
+        const chatLog = document.getElementById('chat-log');
+        if (!chatLog) return;
+        chatLog.innerHTML += `${c.data.clientId} ${c.data.timeSent} ${c.data.message}\n`;
+      } else if (c.event === 'connection') {
+        if (!c.data || !c.data.id) return;
+        setClientId(c.data.id);
+      }
     };
 
     return () => {
@@ -64,7 +52,8 @@ const ChatPage = (props: Props) => {
         event: 'message',
         data: {
           timeSent: new Date(Date.now()).toLocaleString('en-US'),
-          message: e.target[0].value
+          message: e.target[0].value,
+          clientId: clientId
         }
       })
     );
