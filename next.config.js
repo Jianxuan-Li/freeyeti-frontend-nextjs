@@ -11,7 +11,7 @@ const nextConfig = {
     CHAT_SERVER: IS_PROD
       ? 'https://freeyeti.net/chat-server'
       : 'http://localhost:8001',
-    CHAT_SERVER_PATH: IS_PROD ? '/chat-server/socket.io' : ''
+    CHAT_SERVER_PATH: IS_PROD ? '/chat-server/socket.io' : '/chat-server/socket.io'
   },
   webpack: (
     config,
@@ -28,7 +28,7 @@ const nextConfig = {
           : JSON.stringify('http://localhost:8001'),
         CHAT_SERVER_PATH: IS_PROD
           ? JSON.stringify('/chat-server/socket.io')
-          : JSON.stringify('')
+          : JSON.stringify('/chat-server/socket.io')
       })
     );
     return config;
