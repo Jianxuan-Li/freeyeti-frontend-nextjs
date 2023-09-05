@@ -9,6 +9,11 @@ export default async function BlogPage(context) {
   }
 
   const result = await findBlogsBySlug(context.params.slug);
+
+  if (!result || !result.items || result.items.length === 0) {
+    return <div>Blog not found</div>;
+  }
+
   const { id } = result.items[0];
   const blog = await getBlogById(id);
 
