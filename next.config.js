@@ -10,7 +10,7 @@ const nextConfig = {
     API_PREFIX: IS_PROD ? '/backend/api' : '/api',
     CHAT_SERVER: IS_PROD
       ? 'wss://freeyeti.net'
-      : 'ws://localhost:8001',
+      : 'ws://localhost:9000',
     CHAT_SERVER_PATH: IS_PROD
       ? '/chat-server'
       : '/chat-server'
@@ -27,7 +27,7 @@ const nextConfig = {
           : JSON.stringify('http://localhost:3000/api'),
         CHAT_SERVER: IS_PROD
           ? JSON.stringify('wss://freeyeti.net')
-          : JSON.stringify('ws://localhost:8001'),
+          : JSON.stringify('ws://localhost:9000'),
         CHAT_SERVER_PATH: IS_PROD
           ? JSON.stringify('/chat-server')
           : JSON.stringify('/chat-server')
