@@ -3,7 +3,8 @@ import styles from './page.module.css';
 import { getBlogs } from '@/modules/blog/requests';
 import Link from 'next/link';
 import IndexBg from '@/components/IndexBackground';
-import AppButtons from '@/components/index/AppButtons';
+import AppButtons from '@/components/Homepage/AppButtons';
+import GithubLinks from '@/components/Homepage/GithubLinks';
 
 export default async function Home() {
   const { items, meta } = await getBlogs();
@@ -15,6 +16,7 @@ export default async function Home() {
         Yeti&apos;s blog
       </h1>
       <AppButtons />
+      <GithubLinks />
       <div className={styles.blogList}>
         <ul className="list-none">
           {items &&
