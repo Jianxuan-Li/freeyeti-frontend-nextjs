@@ -1,22 +1,38 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Room from '@/components/Chat/Room';
 import Hall from '@/components/Chat/Hall';
-import Header from '@/components/Chat/Header';
+import AuthProvider, { AuthContext } from '@/context/AuthContext';
+import LoginForm from '@/components/Login/LoginForm';
 
 type Props = {};
 
 const ChatPage = (props: Props) => {
-  return (
-    <div>
-      <Header />
-      <div className="mt-6">
-        <Hall />
+  const { user, authLoading } = React.useContext(AuthContext);
+
+  if (authLoading) {
+    return (
+      <div className="container mx-auto text-center">
+        <div>Loading...</div>
       </div>
-      <Room />
+    );
+  }
+
+  if (!user) {
+    return <LoginForm />;
+  }
+
+  return (
+    <div className="container mx-auto px-4">
+      <Hall />
     </div>
   );
 };
 
-export default ChatPage;
+export default function AuthedPage({}: Props) {
+  return (
+    <AuthProvider>
+      <ChatPage />
+    </AuthProvider>
+  );
+}

@@ -1,53 +1,64 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-type Props = {};
+type Props = {
+  name: string;
+};
 
-const chatSocket = new WebSocket(
-  CHAT_SERVER.replace('http', 'ws') + CHAT_SERVER_PATH
-);
-
-const Room = (props: Props) => {
-  const [isConnected, setIsConnected] = useState(chatSocket.readyState === 1);
+const Room = ({ name }: Props) => {
+  const [isConnected, setIsConnected] = useState(false);
   const [clientId, setClientId] = useState('');
+  const ws = useRef<WebSocket | null>();
 
   useEffect(() => {
-    chatSocket.onopen = () => {
-      console.log('Connected to server.');
-      setIsConnected(true);
-    };
+    try {
+      const chatSocket: WebSocket = new WebSocket(
+        CHAT_SERVER.replace('http', 'ws') + CHAT_SERVER_PATH
+      );
 
-    chatSocket.onclose = () => {
-      console.log('Disconnected from server.');
-      setIsConnected(false);
-    };
+      if (!chatSocket) return;
 
-    chatSocket.onmessage = (e: MessageEvent) => {
-      if (!e.data) return;
-      const c = JSON.parse(e.data);
-      console.log('Received message from server: ', c);
+      chatSocket.onopen = () => {
+        console.log('Connected to server.');
+        setIsConnected(true);
+      };
 
-      if (c.event === 'message') {
-        if (!c.data || !c.data.timeSent || !c.data.message) return;
-        const chatLog = document.getElementById('chat-log');
-        if (!chatLog) return;
-        chatLog.innerHTML += `${c.data.clientId} ${c.data.timeSent} ${c.data.message}\n`;
-      } else if (c.event === 'connection') {
-        if (!c.data || !c.data.id) return;
-        setClientId(c.data.id);
-      }
-    };
+      chatSocket.onclose = () => {
+        console.log('Disconnected from server.');
+        setIsConnected(false);
+      };
 
-    return () => {
-      chatSocket.close();
-    };
+      chatSocket.onmessage = (e: MessageEvent) => {
+        if (!e.data) return;
+        const c = JSON.parse(e.data);
+        console.log('Received message from server: ', c);
+
+        if (c.event === 'message') {
+          if (!c.data || !c.data.timeSent || !c.data.message) return;
+          const chatLog = document.getElementById('chat-log');
+          if (!chatLog) return;
+          chatLog.innerHTML += `${c.data.clientId} ${c.data.timeSent} ${c.data.message}\n`;
+        } else if (c.event === 'connection') {
+          if (!c.data || !c.data.id) return;
+          setClientId(c.data.id);
+        }
+      };
+
+      ws.current = chatSocket;
+
+      return () => {
+        chatSocket.close();
+      };
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Sending message...');
-    chatSocket.send(
+    ws && ws.current && ws.current.send(
       JSON.stringify({
         event: 'message',
         data: {
@@ -62,6 +73,7 @@ const Room = (props: Props) => {
 
   return (
     <div>
+      {name}
       <textarea
         id="chat-log"
         cols={100}
