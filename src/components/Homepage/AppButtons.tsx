@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 const StyledLink = styled.button`
   background-color: #fff;
@@ -80,6 +80,7 @@ export default function AppButtons({}: Props) {
         </svg>
         YeChat
       </LinkButton>
+      <LinkButton onClick={() => router.push('/junt')}>Junt</LinkButton>
     </AppBtnContainer>
   );
 }
