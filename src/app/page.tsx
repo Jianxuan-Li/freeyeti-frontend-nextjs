@@ -1,14 +1,10 @@
-import moment from 'moment';
 import styles from './page.module.css';
-import { getBlogs } from '@/modules/blog/requests';
-import Link from 'next/link';
 import IndexBg from '@/components/IndexBackground';
 import AppButtons from '@/components/Homepage/AppButtons';
 import GithubLinks from '@/components/Homepage/GithubLinks';
+import AppLink from '@/components/common/AppLink';
 
 export default async function Home() {
-  const { items, meta } = await getBlogs();
-
   return (
     <main className={styles.main}>
       <IndexBg />
@@ -17,23 +13,9 @@ export default async function Home() {
       </h1>
       <AppButtons />
       <GithubLinks />
-      <div className={styles.blogList}>
-        <ul className="list-none">
-          {items &&
-            items.map((blog) => {
-              return (
-                <li key={blog.id}>
-                  <Link
-                    href={blog.meta.slug}
-                    className="text-blue-600 visited:text-purple-600"
-                  >
-                    {moment(blog.meta.first_published_at).format('Y MM DD')}{' '}
-                    {'>'} {blog.title}
-                  </Link>
-                </li>
-              );
-            })}
-        </ul>
+      <div className={styles.appLinks}>
+        <AppLink href="/blog" title="Blog" />
+        <AppLink href="/junt" title="Junt" />
       </div>
     </main>
   );

@@ -80,7 +80,6 @@ export default function AppButtons({}: Props) {
         </svg>
         YeChat
       </LinkButton>
-      <LinkButton onClick={() => router.push('/junt')}>Junt</LinkButton>
     </AppBtnContainer>
   );
 }
