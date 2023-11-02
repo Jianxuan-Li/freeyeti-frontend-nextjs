@@ -1,6 +1,6 @@
 import styles from "../page.module.css";
 import "./stream-context.css";
-import moment from "moment";
+import dayjs from 'dayjs'
 import { findBlogsBySlug, getBlogById } from "@/modules/blog/requests";
 
 export default async function BlogPage(context) {
@@ -27,7 +27,7 @@ export default async function BlogPage(context) {
         {blog.title}
       </h1>
       <p className={styles.blogPageDate}>
-        {moment(blog.meta.first_published_at).format("Y-M-D")}
+        {dayjs(blog.meta.first_published_at).format("YYYY-MM-DD")}
       </p>
       <div
         className="body-context"

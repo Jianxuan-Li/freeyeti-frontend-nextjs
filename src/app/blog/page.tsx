@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs'
 import styles from '../page.module.css';
 import { getBlogs } from '@/modules/blog/requests';
 import Link from 'next/link';
@@ -20,10 +20,10 @@ export default async function Home() {
               return (
                 <li key={blog.id}>
                   <Link
-                    href={blog.meta.slug}
+                    href={`/${blog.meta.slug}`}
                     className="text-blue-600 visited:text-purple-600"
                   >
-                    {moment(blog.meta.first_published_at).format('Y MM DD')}{' '}
+                    {dayjs(blog.meta.first_published_at).format('YYYY-MM-DD')}{' '}
                     {'>'} {blog.title}
                   </Link>
                 </li>
