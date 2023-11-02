@@ -2,16 +2,22 @@ import React from 'react';
 import styles from '../page.module.css';
 import './stream-context.css';
 import { findBlogsBySlug, getBlogById } from '@/modules/blog/requests';
+import { notFound } from 'next/navigation';
 
 type Props = {};
 
 export default async function JuntAboutPage({}: Props) {
   const result = await findBlogsBySlug('about-junt');
+
+  if (!result) {
+    return notFound();
+  }
+
   const { id } = result.items[0];
   const blog = await getBlogById(id);
 
   if (!blog) {
-    return <div>Page not found</div>;
+    return notFound();
   }
 
   return (

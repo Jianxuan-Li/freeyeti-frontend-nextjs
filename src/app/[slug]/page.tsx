@@ -1,24 +1,25 @@
-import styles from "../page.module.css";
-import "./stream-context.css";
-import dayjs from 'dayjs'
-import { findBlogsBySlug, getBlogById } from "@/modules/blog/requests";
+import styles from '../page.module.css';
+import './stream-context.css';
+import dayjs from 'dayjs';
+import { findBlogsBySlug, getBlogById } from '@/modules/blog/requests';
+import { notFound } from 'next/navigation';
 
-export default async function BlogPage(context) {
-  if (!context.params || !context.params.slug) {
-    return <div>Blog not found</div>;
+export default async function BlogPage({ params }) {
+  if (!params || !params.slug) {
+    return notFound();
   }
 
-  const result = await findBlogsBySlug(context.params.slug);
+  const result = await findBlogsBySlug(params.slug);
 
   if (!result || !result.items || result.items.length === 0) {
-    return <div>Blog not found</div>;
+    return notFound();
   }
 
   const { id } = result.items[0];
   const blog = await getBlogById(id);
 
   if (!blog) {
-    return <div>Blog not found</div>;
+    return notFound();
   }
 
   return (
@@ -27,7 +28,7 @@ export default async function BlogPage(context) {
         {blog.title}
       </h1>
       <p className={styles.blogPageDate}>
-        {dayjs(blog.meta.first_published_at).format("YYYY-MM-DD")}
+        {dayjs(blog.meta.first_published_at).format('YYYY-MM-DD')}
       </p>
       <div
         className="body-context"
