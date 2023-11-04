@@ -8,3 +8,5 @@ export const API_LOGIN = '/v1/auth/login/';
 export const API_LOGOUT = '/v1/auth/logout/';
 export const API_PROFILE = '/v1/auth/profile/';
 
+export const API_YECHAT = '/v1/yechat/';
+export const API_YECHAT_ROOM = (id) => API_YECHAT + id + '/';
