@@ -4,6 +4,7 @@ import { logout } from '@/modules/auth/logout';
 import RoomCard from './RoomCard';
 import NewRoom from './NewRoom';
 import { getChatRooms } from '@/modules/chat/requests';
+import { Room } from '@/modules/chat/types';
 
 type Props = {};
 
@@ -23,22 +24,6 @@ type Props = {};
 }
 */
 
-type User = {
-  id: number;
-  first_name: string;
-  last_name: string;
-};
-
-type Room = {
-  id: number;
-  name: string;
-  slug: string;
-  user: User;
-  is_private: boolean;
-  created_at: string;
-  updated_at: string;
-};
-
 export default function Hall({}: Props) {
   const { user, setUser } = React.useContext(AuthContext);
   const [rooms, setRooms] = React.useState<Room[]>([]);
@@ -50,8 +35,8 @@ export default function Hall({}: Props) {
   }, []);
 
   return (
-    <div className="container mx-auto px-4">
-      <h2>Hall</h2>
+    <div className="container mx-auto px-4 flex flex-col gap-1">
+      <h2>Yechat</h2>
       <div>
         {user?.name},
         <button
@@ -66,11 +51,7 @@ export default function Hall({}: Props) {
       <NewRoom />
       <div className="grid grid-cols-4 gap-4">
         {rooms.map((room) => (
-          <RoomCard
-            key={room.slug}
-            name={room.name}
-            host={room.user.first_name}
-          />
+          <RoomCard key={`room_${room.slug}`} room={room} />
         ))}
       </div>
     </div>

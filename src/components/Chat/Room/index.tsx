@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 type Props = {
-  name: string;
+  slug: string;
 };
 
-const Room = ({ name }: Props) => {
+const Room = ({ slug }: Props) => {
   const [isConnected, setIsConnected] = useState(false);
   const [clientId, setClientId] = useState('');
   const ws = useRef<WebSocket | null>();
@@ -58,22 +58,24 @@ const Room = ({ name }: Props) => {
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Sending message...');
-    ws && ws.current && ws.current.send(
-      JSON.stringify({
-        event: 'message',
-        data: {
-          timeSent: new Date(Date.now()).toLocaleString('en-US'),
-          message: e.target[0].value,
-          clientId: clientId
-        }
-      })
-    );
+    ws &&
+      ws.current &&
+      ws.current.send(
+        JSON.stringify({
+          event: 'message',
+          data: {
+            timeSent: new Date(Date.now()).toLocaleString('en-US'),
+            message: e.target[0].value,
+            clientId: clientId
+          }
+        })
+      );
     e.target[0].value = '';
   };
 
   return (
     <div>
-      {name}
+      {slug}
       <textarea
         id="chat-log"
         cols={100}

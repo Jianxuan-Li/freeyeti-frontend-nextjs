@@ -1,5 +1,10 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { createChatRoom } from '@/modules/chat/requests';
+
+const FormDiv = styled.div`
+  border: 1px solid #ccc;
+`;
 
 type FormItemProps = {
   label: string;
@@ -43,7 +48,7 @@ export default function NewRoom({}: Props) {
   };
 
   return (
-    <div>
+    <FormDiv>
       <h2>Create new room</h2>
       <form className="w-full max-w-sm" onSubmit={handleSubmit}>
         <FormItem label="Room name" name="name" />
@@ -75,6 +80,6 @@ export default function NewRoom({}: Props) {
           </button>
         </div>
       </form>
-    </div>
+    </FormDiv>
   );
 }
