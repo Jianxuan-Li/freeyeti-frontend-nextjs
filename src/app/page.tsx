@@ -3,6 +3,7 @@ import IndexBg from '@/components/IndexBackground';
 import AppButtons from '@/components/Homepage/AppButtons';
 import GithubLinks from '@/components/Homepage/GithubLinks';
 import AppLink from '@/components/common/AppLink';
+import { WebVitals } from '@/components/web-vitals';
 
 export default async function Home() {
   return (
@@ -17,6 +18,7 @@ export default async function Home() {
         <AppLink href="/blog" title="Blog" />
         <AppLink href="/junt" title="Junt" />
       </div>
+      <WebVitals />
     </main>
   );
 }

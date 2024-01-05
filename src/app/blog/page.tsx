@@ -1,8 +1,9 @@
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import styles from '../page.module.css';
 import { getBlogs } from '@/modules/blog/requests';
 import Link from 'next/link';
 import IndexBg from '@/components/IndexBackground';
+import { WebVitals } from '@/components/web-vitals';
 
 export default async function Home() {
   const { items } = await getBlogs();
@@ -31,6 +32,7 @@ export default async function Home() {
             })}
         </ul>
       </div>
+      <WebVitals />
     </main>
   );
 }

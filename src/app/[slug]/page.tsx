@@ -3,6 +3,7 @@ import './stream-context.css';
 import dayjs from 'dayjs';
 import { findBlogsBySlug, getBlogById } from '@/modules/blog/requests';
 import { notFound } from 'next/navigation';
+import { WebVitals } from '@/components/web-vitals';
 
 export default async function BlogPage({ params }) {
   if (!params || !params.slug) {
@@ -34,6 +35,7 @@ export default async function BlogPage({ params }) {
         className="body-context"
         dangerouslySetInnerHTML={{ __html: blog.context }}
       />
+      <WebVitals />
     </main>
   );
 }
