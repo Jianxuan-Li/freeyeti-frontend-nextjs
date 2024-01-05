@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { LockClosedIcon } from '@heroicons/react/24/outline';
-import { Room } from './index';
+import { Room } from '@/modules/chat/types';
 
 type Props = {
   room: Room;
