@@ -33,7 +33,7 @@ export const findBlogsBySlug = async (slug: string, params: any = {}) => {
 
 export const updateViewCount = async (type: string, id: number) => {
   try {
-    return await api.get(API_BLOG_V1 + '/view_count/', {
+    return await api.get(API_BLOG_V1 + 'view_count/', {
       params: { type, id }
     });
   } catch (e) {
