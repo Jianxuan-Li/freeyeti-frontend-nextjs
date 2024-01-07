@@ -30,6 +30,11 @@
 .blogPageDate {
   padding-bottom: 15px;
   border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
 }
 
 .appLinks {
