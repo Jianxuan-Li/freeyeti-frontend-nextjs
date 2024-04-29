@@ -4,10 +4,11 @@ import RoomApp from '@/components/Chat/Room';
 import { useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import { getChatRoom, askJoinChatRoom } from '@/modules/chat/requests';
+import AuthedPage from '@/modules/auth/AuthedPage';
 
 type Props = {};
 
-export default function RoomPage({}: Props) {
+function RoomPage({}: Props) {
   const params = useParams();
 
   const [loading, setLoading] = useState(true);
@@ -65,5 +66,13 @@ export default function RoomPage({}: Props) {
     <div className="container mx-auto px-4">
       <RoomApp slug={slug} />
     </div>
+  );
+}
+
+export default function AuthedRoomPage({}: Props) {
+  return (
+    <AuthedPage>
+      <RoomPage />
+    </AuthedPage>
   );
 }
