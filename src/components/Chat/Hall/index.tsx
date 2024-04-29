@@ -34,6 +34,12 @@ export default function Hall({}: Props) {
     });
   }, []);
 
+  const onRoomCreated = () => {
+    getChatRooms().then((res) => {
+      setRooms(res.data.data);
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 flex flex-col gap-1">
       <h2>Yechat</h2>
@@ -48,7 +54,7 @@ export default function Hall({}: Props) {
           Logout
         </button>
       </div>
-      <NewRoom />
+      <NewRoom onCreated={onRoomCreated} />
       <div className="grid grid-cols-4 gap-4">
         {rooms.map((room) => (
           <RoomCard key={`room_${room.slug}`} room={room} />

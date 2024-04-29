@@ -34,9 +34,11 @@ function FormItem({ label, name }: FormItemProps) {
   );
 }
 
-type Props = {};
+type Props = {
+  onCreated?: () => void;
+};
 
-export default function NewRoom({}: Props) {
+export default function NewRoom({ onCreated }: Props) {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -53,6 +55,9 @@ export default function NewRoom({}: Props) {
       const result = await createChatRoom({ name, slug, passcode, is_private });
       if (result) {
         setSuccess(true);
+        if (onCreated) {
+          onCreated();
+        }
       }
     } catch (e) {
       setError(e.response.data.message);
