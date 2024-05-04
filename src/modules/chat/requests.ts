@@ -30,3 +30,7 @@ export const askJoinChatRoom = async (
     return e.response.data.message;
   }
 };
+
+export const getContacts = async () => {
+  return await api.get(API_YECHAT + '/contacts');
+}
