@@ -34,52 +34,77 @@ function FormItem({ label, name }: FormItemProps) {
   );
 }
 
-type Props = {};
+type Props = {
+  onCreated?: () => void;
+};
 
-export default function NewRoom({}: Props) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function NewRoom({ onCreated }: Props) {
+  const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
     const slug = formData.get('slug') as string;
     const passcode = formData.get('passcode') as string;
     const is_private = formData.get('is_private') === 'true';
-    createChatRoom({ name, slug, passcode, is_private });
+    setLoading(true);
+    try {
+      const result = await createChatRoom({ name, slug, passcode, is_private });
+      if (result) {
+        setSuccess(true);
+        if (onCreated) {
+          onCreated();
+        }
+      }
+    } catch (e) {
+      setError(e.response.data.message);
+    }
+    setLoading(false);
   };
 
   return (
     <FormDiv>
-      <h2>Create new room</h2>
-      <form className="w-full max-w-sm" onSubmit={handleSubmit}>
-        <FormItem label="Room name" name="name" />
-        <FormItem label="Slug" name="slug" />
-        <FormItem label="Passcode" name="passcode" />
-        <div className="flex items-start mb-6">
-          <div className="flex items-center h-5">
-            <input
-              id="is_private"
-              type="checkbox"
-              name="is_private"
-              value="true"
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-            />
-          </div>
-          <label
-            htmlFor="is_private"
-            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Private
-          </label>
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Create
-          </button>
-        </div>
-      </form>
+      {!success && (
+        <>
+          <h2>Create new room</h2>
+          <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+            <FormItem label="Room name" name="name" />
+            <FormItem label="Slug" name="slug" />
+            <FormItem label="Passcode" name="passcode" />
+            <div className="flex items-start mb-6">
+              <div className="flex items-center h-5">
+                <input
+                  id="is_private"
+                  type="checkbox"
+                  name="is_private"
+                  value="true"
+                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                />
+              </div>
+              <label
+                htmlFor="is_private"
+                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Private
+              </label>
+            </div>
+            <div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Create
+              </button>
+            </div>
+          </form>
+          {error && <div>{error}</div>}
+        </>
+      )}
+      {success && <div>Room created successfully!</div>}
     </FormDiv>
   );
 }

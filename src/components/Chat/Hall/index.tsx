@@ -8,6 +8,12 @@ type Props = {};
 export default function Hall({}: Props) {
   const { user, setUser } = React.useContext(AuthContext);
 
+  const onRoomCreated = () => {
+    getChatRooms().then((res) => {
+      setRooms(res.data.data);
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 flex flex-col gap-1">
       <h2>Yechat</h2>
@@ -22,17 +28,11 @@ export default function Hall({}: Props) {
           Logout
         </button>
       </div>
-
-      <div className="flex flex-row gap-1">
-        {/* left contacts menu */}
-        <div className="basis-3/12">
-          <Contacts />
-        </div>
-
-        {/* right chat room */}
-        <div className="basis-9/12">
-          <div>Chat room</div>
-        </div>
+      <NewRoom onCreated={onRoomCreated} />
+      <div className="grid grid-cols-4 gap-4">
+        {rooms.map((room) => (
+          <RoomCard key={`room_${room.slug}`} room={room} />
+        ))}
       </div>
     </div>
   );

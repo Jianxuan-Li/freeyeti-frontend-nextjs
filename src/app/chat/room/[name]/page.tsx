@@ -4,10 +4,11 @@ import RoomApp from '@/components/Chat/Room';
 import { useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import { getChatRoom, askJoinChatRoom } from '@/modules/chat/requests';
+import AuthedPage from '@/modules/auth/AuthedPage';
 
 type Props = {};
 
-export default function RoomPage({}: Props) {
+function RoomPage({}: Props) {
   const params = useParams();
 
   const [loading, setLoading] = useState(true);
@@ -43,8 +44,19 @@ export default function RoomPage({}: Props) {
     return (
       <div className="container mx-auto px-4">
         <form onSubmit={handleJoin}>
-          <input type="password" name="passcode" />
-          <button type="submit">Submit</button>
+          <label htmlFor="password">Enter passcode</label>
+          <input
+            type="password"
+            name="passcode"
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Submit
+          </button>
         </form>
       </div>
     );
@@ -54,5 +66,13 @@ export default function RoomPage({}: Props) {
     <div className="container mx-auto px-4">
       <RoomApp slug={slug} />
     </div>
+  );
+}
+
+export default function AuthedRoomPage({}: Props) {
+  return (
+    <AuthedPage>
+      <RoomPage />
+    </AuthedPage>
   );
 }
